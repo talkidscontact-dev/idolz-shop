@@ -897,22 +897,25 @@
             priceElement.innerText = currentPriceValue.toFixed(2).replace('.', ',') + ' €';
         }
 
-         function addToCart() {
-    if (!selectedProduct) return;
-    const activeSize = document.querySelector('.sizes-btn .size-chip.active');
-    const sizeText = activeSize ? activeSize.innerText : 'M';
+        function addToCart() {
+            if (!selectedProduct) return;
+            const activeSize = document.querySelector('.sizes-btn .size-chip.active');
+            const sizeText = activeSize ? activeSize.innerText : 'M';
 
-    cart.push({ 
-        title: selectedProduct.title, // Transmet le vrai nom du produit choisi
-        price: currentPriceValue, 
-        size: sizeText, 
-        priceId: currentPriceId 
-    });
-    
-    saveCart();
-    triggerCartAnimation();
-    toggleProductModal(false);
-}     
+            // On concatène le nom du produit et la taille ici :
+            const titleWithSize = `${selectedProduct.title} (Taille ${sizeText})`;
+
+            cart.push({ 
+                title: titleWithSize, // Transmet le nom avec la taille incluse
+                price: currentPriceValue, 
+                size: sizeText, 
+                priceId: currentPriceId 
+            });
+            
+            saveCart();
+            triggerCartAnimation();
+            toggleProductModal(false);
+        }
         function toggleCart(show) {
             if (show) {
                 renderCart();
